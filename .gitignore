@@ -1,0 +1,33 @@
+# Environment files
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Dependencies
+node_modules/
+
+# Temp files
+tmp/
+temp/
+
+# Platforma subproject (exclude from PM repo)
+platforma/
+
+# Claude responses and logs
+.claude/responses.log
+.claude/temp/
+
+# Codespaces files (too large for git)
+.codespaces/
+.oryx/
