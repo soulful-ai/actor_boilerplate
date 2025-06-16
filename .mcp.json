@@ -4,12 +4,12 @@
       "command": "uv",
       "args": [
         "--directory",
-        "/Users/soulful/Workspace/agentfarm/apps/mcp/cli_use",
+        "CONFIGURE_YOUR_MCP_CLI_DIR_IN_ENV",
         "run",
         "cli_use"
       ],
       "env": {
-        "ALLOWED_DIR": "/Users/soulful/Workspace/agentfarm",
+        "ALLOWED_DIR": "CONFIGURE_YOUR_ALLOWED_DIR_IN_ENV",
         "ALLOWED_COMMANDS": "all",
         "ALLOWED_FLAGS": "all",
         "MAX_COMMAND_LENGTH": "1024",
