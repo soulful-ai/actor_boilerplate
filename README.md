@@ -1,6 +1,6 @@
 # Claude Actor Boilerplate
 
-A comprehensive boilerplate for creating individual Claude actors (Coder, Sales, Marketing, etc.). This Nx monorepo template is designed to be used as a git submodule in the PM Claude orchestrator's `packages/` folder.
+A comprehensive boilerplate for creating individual Claude actors (Coder, Marketing, Support). This Nx monorepo template is designed to be used as a git submodule in the PM Claude orchestrator's `packages/` folder.
 
 ## File Structure
 
@@ -38,12 +38,9 @@ Results → PM Claude → User
 
 This boilerplate can be customized for different Claude actor types:
 
-- **Coder Actor** - Handles coding, testing, and implementation tasks
-- **Sales Actor** - Manages sales processes, lead generation, CRM operations
-- **Marketing Actor** - Content creation, campaign management, analytics
-- **DevOps Actor** - Infrastructure, deployments, monitoring
-- **QA Actor** - Testing, quality assurance, bug tracking
-- **Support Actor** - Customer support, documentation, troubleshooting
+- **Coder Actor** - Handles coding, testing, implementation, and technical tasks
+- **Marketing Actor** - Content creation, campaign management, analytics, and brand strategy
+- **Support Actor** - Customer support, documentation, troubleshooting, and user assistance
 
 ### Components
 
@@ -93,9 +90,8 @@ This actor will be managed as a git submodule in the PM Claude orchestrator:
 orchestrator/
 ├── packages/
 │   ├── coder-actor/          # This boilerplate customized for coding
-│   ├── sales-actor/          # This boilerplate customized for sales  
 │   ├── marketing-actor/      # This boilerplate customized for marketing
-│   └── devops-actor/         # This boilerplate customized for DevOps
+│   └── support-actor/        # This boilerplate customized for support
 ```
 
 ## Development
