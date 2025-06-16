@@ -1,0 +1,33 @@
+{
+  "name": "agentfarm",
+  "$schema": "node_modules/nx/schemas/project-schema.json",
+  "root": ".",
+  "sourceRoot": ".",
+  "projectType": "application",
+  "targets": {
+    "install-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./scripts/install-all.sh"
+      }
+    },
+    "build-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npx nx run mcp-cli_use:build"
+      }
+    },
+    "start-all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "WORKSPACE_ROOT=$(pwd) UV_BIN_PATH=$(which uv) ALLOWED_DIR=$(pwd) ALLOWED_COMMANDS=all ALLOWED_FLAGS=all MAX_COMMAND_LENGTH=1024 COMMAND_TIMEOUT=60 ALLOW_SHELL_OPERATORS=true concurrently --names \"CLI\" -c \"bgBlue.bold\" \"nx run mcp-cli_use:serve\""
+      }
+    },
+    "generate-mcp-config": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "./scripts/generate-mcp-config.sh"
+      }
+    }
+  }
+}

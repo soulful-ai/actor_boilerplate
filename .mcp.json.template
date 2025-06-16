@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "cli_use": {
+      "command": "uv",
+      "args": [
+        "--directory",
+        "${MCP_CLI_DIR}",
+        "run",
+        "cli_use"
+      ],
+      "env": {
+        "ALLOWED_DIR": "${ALLOWED_DIR}",
+        "ALLOWED_COMMANDS": "all",
+        "ALLOWED_FLAGS": "all",
+        "MAX_COMMAND_LENGTH": "1024",
+        "COMMAND_TIMEOUT": "60",
+        "ALLOW_SHELL_OPERATORS": "true"
+      }
+    }
+  }
+}

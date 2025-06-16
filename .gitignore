@@ -31,3 +31,17 @@ platforma/
 # Codespaces files (too large for git)
 .codespaces/
 .oryx/
+
+.history
+.DS_Store
+.nx/installation
+.nx/cache
+.nx/workspace-data
+node_modules
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+
+.cursor/rules/nx-rules.mdc
+.github/instructions/nx.instructions.md
+

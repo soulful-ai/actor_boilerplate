@@ -1,0 +1,44 @@
+{
+  "name": "mcp-cli_use",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/mcp/cli_use",
+  "targets": {
+    "sync": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv sync --extra test --extra dev",
+        "cwd": "apps/mcp/cli_use"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv venv --allow-existing && uv pip install --editable '.[test,dev]' && uv run pytest",
+        "cwd": "apps/mcp/cli_use"
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv venv --allow-existing && uv pip install --editable . && ALLOWED_DIR=$(pwd)/../../../ ALLOWED_COMMANDS=all ALLOWED_FLAGS=all COMMAND_TIMEOUT=60 ALLOW_SHELL_OPERATORS=true uv run cli_use",
+        "cwd": "apps/mcp/cli_use"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv venv --allow-existing && uv pip install --editable . && uv build",
+        "cwd": "apps/mcp/cli_use"
+      }
+    },
+    "serve-sse": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "uv venv --allow-existing && uv pip install --editable . && ALLOWED_DIR=$(pwd)/../../../ ALLOWED_COMMANDS=all ALLOWED_FLAGS=all COMMAND_TIMEOUT=60 ALLOW_SHELL_OPERATORS=true uv run cli_use_server start --transport sse --port 8005",
+        "cwd": "apps/mcp/cli_use"
+      }
+    }
+  },
+  "tags": ["type:mcp", "scope:tool"]
+}

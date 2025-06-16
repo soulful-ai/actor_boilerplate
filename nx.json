@@ -1,0 +1,13 @@
+{
+  "cli": {
+    "packageManager": "npm"
+  },
+  "installation": {
+    "version": "20.1.3",
+    "plugins": {
+      "@nx/eslint": "20.1.3",
+      "@nx/jest": "20.1.3",
+      "@nx/vite": "20.1.3"
+    }
+  }
+}
