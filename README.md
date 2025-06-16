@@ -57,7 +57,7 @@ This boilerplate can be customized for different Claude actor types:
 1. **Create from template**:
    ```bash
    # In your orchestrator's packages/ directory
-   git submodule add https://github.com/soulful-ai/claude-actor-boilerplate.git my-actor-name
+   git submodule add https://github.com/soulful-ai/boilerplate.git my-actor-name
    cd my-actor-name
    ```
 
