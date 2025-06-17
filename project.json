@@ -7,44 +7,44 @@
   "targets": {
     "install": {
       "executor": "nx:run-commands",
+      "description": "Install all actor dependencies",
       "options": {
-        "command": "./scripts/install-dependencies.sh",
-        "description": "Install all actor dependencies"
+        "command": "./scripts/install-dependencies.sh"
       }
     },
     "build": {
       "executor": "nx:run-commands",
+      "description": "Build actor MCP server",
       "options": {
-        "command": "nx run mcp-cli_use:build",
-        "description": "Build actor MCP server"
+        "command": "nx run mcp-cli_use:build"
       }
     },
     "serve": {
       "executor": "nx:run-commands",
+      "description": "Start actor MCP server",
       "options": {
-        "command": "WORKSPACE_ROOT=$(pwd) UV_BIN_PATH=$(which uv) ALLOWED_DIR=$(pwd) ALLOWED_COMMANDS=all ALLOWED_FLAGS=all MAX_COMMAND_LENGTH=1024 COMMAND_TIMEOUT=60 ALLOW_SHELL_OPERATORS=true nx run mcp-cli_use:serve",
-        "description": "Start actor MCP server"
+        "command": "WORKSPACE_ROOT=$(pwd) UV_BIN_PATH=$(which uv) ALLOWED_DIR=$(pwd) ALLOWED_COMMANDS=all ALLOWED_FLAGS=all MAX_COMMAND_LENGTH=1024 COMMAND_TIMEOUT=60 ALLOW_SHELL_OPERATORS=true nx run mcp-cli_use:serve"
       }
     },
     "generate-mcp-config": {
       "executor": "nx:run-commands",
+      "description": "Generate MCP configuration for Claude Desktop",
       "options": {
-        "command": "./scripts/generate-mcp-config.sh",
-        "description": "Generate MCP configuration for Claude Desktop"
+        "command": "./scripts/generate-mcp-config.sh"
       }
     },
     "test": {
       "executor": "nx:run-commands",
+      "description": "Run actor tests",
       "options": {
-        "command": "TEST_MODE=true nx run mcp-cli_use:test",
-        "description": "Run actor tests"
+        "command": "TEST_MODE=true nx run mcp-cli_use:test"
       }
     },
     "setup-environment": {
       "executor": "nx:run-commands",
+      "description": "Setup actor environment (detects local vs codespaces)",
       "options": {
-        "command": "./scripts/setup-environment.sh",
-        "description": "Setup actor environment (detects local vs codespaces)"
+        "command": "./scripts/setup-environment.sh"
       }
     }
   }
