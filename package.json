@@ -1,7 +1,10 @@
 {
-  "name": "agentfarm",
+  "name": "actor-boilerplate",
   "version": "0.0.1",
   "private": true,
+  "scripts": {
+    "nx": "node node_modules/nx/bin/nx.js"
+  },
   "devDependencies": {
     "@nx/eslint": "20.1.3",
     "@nx/eslint-plugin": "^20.1.3",

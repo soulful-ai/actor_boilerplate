@@ -20,6 +20,8 @@ def print_results_table(name: str, results: list) -> None:
 
 class TestCLIMCPServer(unittest.TestCase):
     def setUp(self):
+        # Enable TEST_MODE for authentication bypass
+        os.environ["TEST_MODE"] = "true"
         # Create a temporary directory for allowed_dir
         self.tempdir = tempfile.TemporaryDirectory()
         os.environ["ALLOWED_DIR"] = self.tempdir.name

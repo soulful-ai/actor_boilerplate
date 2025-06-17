@@ -1,157 +1,201 @@
-# Claude Actor Boilerplate
+# Actor Boilerplate - PM Director Actor Template
 
-A comprehensive boilerplate for creating individual Claude actors (Coder, Marketing, Support). This Nx monorepo template is designed to be used as a git submodule in the PM Claude orchestrator's `packages/` folder.
+A comprehensive boilerplate for creating specialized Claude actors within the PM Director orchestration system. This template provides everything needed to quickly create new actors (Coder, Infrastructure, ML, Marketing, Support, etc.) that integrate seamlessly with PM Director.
 
-## File Structure
+## Overview
 
+This boilerplate includes:
+- **MCP Server Integration** - Pre-configured CLI server for PM Director communication
+- **Nx Monorepo Structure** - Organized apps/, libs/, tools/, docs/ folders
+- **Environment Flexibility** - Dual support for local and GitHub Codespaces
+- **PM Director Patterns** - Task delegation, progress reporting, challenge escalation
+- **Testing Framework** - TEST_MODE authentication bypass for easy testing
+- **Git Workflow** - Submodule best practices and PR management
+- **Documentation Templates** - Structured prompts/ folder with workflow guides
+
+## Quick Start
+
+### 1. Create New Actor from Boilerplate
+
+```bash
+# From PM Director workspace packages/ directory
+git clone https://github.com/soulful-ai/boilerplate.git my-actor-name
+cd my-actor-name
+
+# Remove boilerplate git history
+rm -rf .git
+git init
+
+# Create new repository
+gh repo create soulful-ai/my-actor-name --private
+git remote add origin https://github.com/soulful-ai/my-actor-name.git
 ```
-claude-actor/
-├── .mcp.json.template     # MCP configuration template
-├── .mcp.json             # Generated MCP configuration  
-├── .env.example          # Environment variables template
-├── CLAUDE.md            # Actor-specific instructions and guidelines
-├── project.json         # Root Nx project configuration
-├── nx.json              # Nx workspace configuration
-├── scripts/             # Automation scripts
-│   └── generate-mcp-config.sh
-├── apps/                # Nx applications
-│   └── mcp/
-│       └── cli_use/     # CLI MCP server implementation
-├── libs/                # Shared libraries for this actor
-├── docs/                # Actor documentation
-└── tools/               # Actor-specific tooling
+
+### 2. Customize for Your Actor
+
+```bash
+# Setup environment (auto-detects local vs codespaces)
+./scripts/setup-environment.sh
+
+# Install dependencies
+npm install
+
+# Start customizing:
+# 1. Update CLAUDE.md with your actor role
+# 2. Edit package.json and project.json names
+# 3. Configure .env with your actor settings
+# 4. Add domain-specific apps to apps/
+# 5. Create shared libraries in libs/
+```
+
+### 3. Configure and Test
+
+```bash
+# Generate MCP configuration
+npm run nx generate-mcp-config
+
+# Run tests
+npm run nx test
+
+# Start MCP server
+npm run nx serve
+```
+
+### 4. Add to PM Director
+
+```bash
+# From PM Director workspace
+cd packages/
+git submodule add https://github.com/soulful-ai/my-actor-name.git
+
+# Update PM Director configuration
+# - Add to .env
+# - Update detect-environment.sh
+# - Add to project.json orchestration commands
 ```
 
 ## Architecture
 
 ```
-PM Claude (Orchestrator)
-    ↓ (Headless Claude Commands)
-Claude Actor (This Repository)
-    ↓ (Specialized Implementation)
-Target Repository/Service
-    ↓ (Changes/Output)
-Results → PM Claude → User
+PM Director (Port 9000)
+    ├── Shared Workspace Communication
+    ├── Task Delegation via .shared-workspace/
+    └── Actor Management
+         ├── Coder Actor (Port 9001)
+         ├── Infrastructure Actor (Port 9002)
+         ├── ML Actor (Port 9003)
+         ├── Marketing Actor (Port 9004)
+         └── [Your Actor] (Port 900X)
 ```
-
-### Actor Types
-
-This boilerplate can be customized for different Claude actor types:
-
-- **Coder Actor** - Handles coding, testing, implementation, and technical tasks
-- **Marketing Actor** - Content creation, campaign management, analytics, and brand strategy
-- **Support Actor** - Customer support, documentation, troubleshooting, and user assistance
-
-### Components
-
-- **MCP Server** - Communication interface with PM Claude
-- **Nx Monorepo** - Manages actor-specific applications and libraries
-- **Dynamic Configuration** - Environment-driven setup
-- **Specialized Apps** - Actor-specific implementations in `apps/`
-- **Shared Libraries** - Common utilities in `libs/`
-
-## Usage as Boilerplate
-
-### Creating a New Claude Actor
-
-1. **Create from template**:
-   ```bash
-   # In your orchestrator's packages/ directory
-   git submodule add https://github.com/soulful-ai/boilerplate.git my-actor-name
-   cd my-actor-name
-   ```
-
-2. **Customize for your actor type**:
-   ```bash
-   # Install dependencies
-   npm install
-   
-   # Update CLAUDE.md with actor-specific instructions
-   # Modify apps/ to add actor-specific applications
-   # Update .env.example with required variables
-   ```
-
-3. **Configure environment**:
-   ```bash
-   cp .env.example .env
-   # Edit .env with your specific paths and configurations
-   ```
-
-4. **Generate MCP configuration**:
-   ```bash
-   nx generate-mcp-config
-   ```
-
-### Integration with PM Claude
-
-This actor will be managed as a git submodule in the PM Claude orchestrator:
-
-```
-orchestrator/
-├── packages/
-│   ├── coder-actor/          # This boilerplate customized for coding
-│   ├── marketing-actor/      # This boilerplate customized for marketing
-│   └── support-actor/        # This boilerplate customized for support
-```
-
-## Development
-
-### Nx Commands
-
-```bash
-# Build all projects
-nx run-many --target=build
-
-# Test specific project
-nx test <project-name>
-
-# Lint all projects  
-nx run-many --target=lint
-
-# Generate MCP configuration
-nx generate-mcp-config
-```
-
-### Adding Actor-Specific Applications
-
-```bash
-# Generate a new application
-nx g @nx/node:application my-actor-app
-
-# Generate a new library
-nx g @nx/node:library my-shared-lib
-```
-
-## Actor Workflow
-
-1. **PM Delegation** → Receives task from PM Claude via MCP
-2. **Task Analysis** → Actor analyzes requirements within its domain
-3. **Implementation** → Actor executes specialized functionality
-4. **Result Processing** → Actor processes and formats results
-5. **Response** → Actor returns results to PM Claude
-6. **Integration** → PM Claude integrates results into overall workflow
 
 ## Key Features
 
-- **Specialized Focus** - Each actor handles specific domain expertise
-- **Modular Architecture** - Nx monorepo for organized development
-- **MCP Communication** - Seamless integration with PM Claude orchestrator
-- **Dynamic Configuration** - Environment-driven setup and customization
-- **Template-Based** - Rapid deployment of new actor types
-- **Scalable Structure** - Support for complex actor-specific applications
-- **Shared Libraries** - Reusable components across actor projects
+### 1. PM Director Integration
+- **Task Reception** - Monitor `.shared-workspace/tasks/` for delegations
+- **Progress Reporting** - Real-time updates to `.shared-workspace/responses/`
+- **Challenge Escalation** - Immediate blocker communication patterns
+- **Test Deployment** - Focus on user-testable environments
 
-## Technical Architecture
+### 2. Environment Support
+- **Auto-Detection** - Scripts detect local vs GitHub Codespaces
+- **Flexible Paths** - Environment variables for all paths
+- **Shared Workspace** - Automatic setup of communication directories
 
-### MCP Server Integration
-- **Dynamic Port** - Configurable communication endpoint
-- **Environment Variables** - User-configurable via `.env` variables
-- **Template System** - `.mcp.json.template` with variable substitution
-- **Auto-Generation** - Nx command for seamless setup
-- **CLI Implementation** - Located in `apps/mcp/cli_use/` with Python/uv setup
+### 3. Development Tools
+- **Nx Commands** - Simplified with npm scripts (`npm run nx`)
+- **TEST_MODE** - Bypass authentication in tests
+- **Port Convention** - 900X series for actor assignments
+- **Git Workflow** - Submodule-aware PR process
 
-### Actor Customization
-- **Domain-Specific Apps** - Add applications for your actor's specialty
-- **Shared Libraries** - Common utilities in `libs/` folder
-- **Custom Tooling** - Actor-specific tools and scripts
-- **Flexible Configuration** - Adapt MCP settings for your use case
+### 4. Documentation
+- **CLAUDE.md** - Comprehensive actor instructions
+- **prompts/** - Concise workflow guides (100 lines max)
+- **Response Templates** - Structured communication formats
+
+## File Structure
+
+```
+actor-boilerplate/
+├── CLAUDE.md                 # Actor role and PM integration guide
+├── README.md                 # This file - architecture overview
+├── package.json             # Node dependencies and nx script
+├── project.json             # Nx targets and commands
+├── .env.example             # Environment template with examples
+├── .mcp.json.template       # MCP config template
+├── prompts/                 # Workflow documentation
+│   ├── README.md           # Quick reference
+│   ├── SETUP.md            # Environment setup
+│   ├── WORKFLOWS.md        # Common procedures
+│   └── TROUBLESHOOTING.md  # Known issues
+├── scripts/                 # Automation scripts
+│   ├── setup-environment.sh # Auto-detect environment
+│   └── generate-mcp-config.sh
+├── apps/                    # Actor applications
+│   └── mcp/
+│       └── cli_use/        # MCP server implementation
+├── libs/                    # Shared libraries
+├── tools/                   # Actor-specific tools
+└── .github/
+    └── workflows/
+        └── ci.yaml         # CI with TEST_MODE
+
+```
+
+## Customization Checklist
+
+When creating a new actor from this boilerplate:
+
+- [ ] Clone and rename repository
+- [ ] Update `CLAUDE.md` with actor role and specialization
+- [ ] Set actor name in `package.json` and `project.json`
+- [ ] Assign port number (900X series)
+- [ ] Configure `.env.example` with domain variables
+- [ ] Add specialized apps to `apps/`
+- [ ] Create shared libraries in `libs/`
+- [ ] Update prompts documentation
+- [ ] Add domain-specific commands to `project.json`
+- [ ] Create GitHub repository
+- [ ] Configure as PM Director submodule
+- [ ] Update PM Director environment files
+- [ ] Test MCP communication
+- [ ] Verify shared workspace access
+
+## Best Practices
+
+### Communication
+- Always acknowledge tasks immediately
+- Update progress every 5-10 minutes
+- Escalate blockers without delay
+- Provide test URLs for validation
+
+### Development
+- Stay on main branch for normal work
+- Create feature branches for PRs
+- Test with TEST_MODE=true
+- Document all decisions
+
+### Integration
+- Follow port convention (900X)
+- Use environment variables
+- Maintain clean git history
+- Keep documentation current
+
+## Success Example
+
+The Marketing Actor was created using this exact boilerplate process:
+1. Cloned boilerplate to `packages/mercatoria`
+2. Customized for marketing intelligence role
+3. Added marketing-specific apps and tools
+4. Configured as git submodule
+5. Integrated with PM Director orchestration
+6. Successfully handles marketing tasks via delegation
+
+## Support
+
+For issues or questions:
+1. Check `prompts/TROUBLESHOOTING.md`
+2. Review PM Director documentation
+3. Examine existing actors for patterns
+4. Escalate to PM Director with details
+
+Remember: This boilerplate provides the foundation. Your actor's unique value comes from the domain-specific functionality you add!
