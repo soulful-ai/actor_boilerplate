@@ -1,15 +1,24 @@
 {
-  "mcpServers": {
+  "servers": {
+    "nx-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "nx-mcp@latest",
+        "/Users/soulful/Workspace/workspace/packages/actor_boilerplate"
+      ]
+    },
     "cli_use": {
+      "type": "stdio",
       "command": "uv",
       "args": [
         "--directory",
-        "CONFIGURE_YOUR_MCP_CLI_DIR_IN_ENV",
+        "/Users/soulful/Workspace/workspace/packages/actor_boilerplate/apps/mcp/cli_use",
         "run",
         "cli_use"
       ],
       "env": {
-        "ALLOWED_DIR": "CONFIGURE_YOUR_ALLOWED_DIR_IN_ENV",
+        "ALLOWED_DIR": "/Users/soulful/Workspace/workspace/packages/actor_boilerplate",
         "ALLOWED_COMMANDS": "all",
         "ALLOWED_FLAGS": "all",
         "MAX_COMMAND_LENGTH": "1024",

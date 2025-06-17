@@ -1,6 +1,15 @@
 {
-  "mcpServers": {
+  "servers": {
+    "nx-mcp": {
+      "type": "stdio",
+      "command": "npx",
+      "args": [
+        "nx-mcp@latest",
+        "${ACTOR_ROOT}"
+      ]
+    },
     "cli_use": {
+      "type": "stdio",
       "command": "uv",
       "args": [
         "--directory",
