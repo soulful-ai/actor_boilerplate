@@ -1,90 +1,60 @@
 #!/bin/bash
 
 # Actor Environment Setup Script
-# Detects environment (local vs GitHub Codespaces) and configures paths
+# Sources PM Director's .env configuration
 
 set -e
 
-echo "🔍 Detecting environment..."
+echo "🔍 Actor Environment Setup"
+echo "========================"
 
-# Detect if we're in GitHub Codespaces
-if [ -n "$CODESPACES" ]; then
-    echo "📍 GitHub Codespaces environment detected"
-    WORKSPACE_BASE="/workspaces"
+# Find PM Director's .env file
+# Try common locations based on flat structure
+if [[ -f "../pm/.env" ]]; then
+    PM_ENV_FILE="../pm/.env"
+    echo "✅ Found PM Director's .env at ../pm/.env"
+elif [[ -f "../../pm/.env" ]]; then
+    PM_ENV_FILE="../../pm/.env"
+    echo "✅ Found PM Director's .env at ../../pm/.env"
 else
-    echo "📍 Local development environment detected"
-    WORKSPACE_BASE="/Users/$USER/Workspace"
+    echo "❌ Error: Cannot find PM Director's .env file"
+    echo "Make sure PM Director is set up first with setup-environment.sh"
+    exit 1
 fi
 
-# Get actor directory name from current path
+# Source PM's environment
+source "$PM_ENV_FILE"
+echo "✅ Sourced PM Director's environment configuration"
+
+# Get actor directory name
 ACTOR_DIR=$(basename $(pwd))
-
-# Set paths based on environment
-export ACTOR_ROOT=$(pwd)
-export PM_WORKSPACE=$(dirname $(dirname $ACTOR_ROOT))
-export SHARED_WORKSPACE="$PM_WORKSPACE/.shared-workspace"
-
-# Create .env.detected file
-cat > .env.detected << EOF
-# Auto-detected environment variables
-# Generated on: $(date)
-# Environment: $([ -n "$CODESPACES" ] && echo "GitHub Codespaces" || echo "Local Development")
-
-export ACTOR_ROOT="$ACTOR_ROOT"
-export PM_WORKSPACE="$PM_WORKSPACE"
-export SHARED_WORKSPACE="$SHARED_WORKSPACE"
-export MCP_CLI_DIR="$ACTOR_ROOT/apps/mcp/cli_use"
-export ALLOWED_DIR="$ACTOR_ROOT"
-
-# Actor-specific paths
 export ACTOR_NAME="$ACTOR_DIR"
-EOF
-
-echo "✅ Environment detected and configured:"
-echo "   ACTOR_ROOT: $ACTOR_ROOT"
-echo "   PM_WORKSPACE: $PM_WORKSPACE"
-echo "   SHARED_WORKSPACE: $SHARED_WORKSPACE"
-
-# Create shared workspace structure if it doesn't exist
-if [ ! -d "$SHARED_WORKSPACE" ]; then
-    echo "📁 Creating shared workspace structure..."
-    mkdir -p "$SHARED_WORKSPACE"/{tasks,responses,context,logs}
-    echo "✅ Shared workspace created"
-fi
-
-# Check if .env exists, if not copy from example
-if [ ! -f .env ]; then
-    if [ -f .env.example ]; then
-        echo "📝 Creating .env from .env.example..."
-        cp .env.example .env
-        # Update paths in .env with detected values
-        if [ "$(uname)" = "Darwin" ]; then
-            # macOS
-            sed -i '' "s|ACTOR_ROOT=.*|ACTOR_ROOT=$ACTOR_ROOT|" .env
-            sed -i '' "s|PM_WORKSPACE=.*|PM_WORKSPACE=$PM_WORKSPACE|" .env
-            sed -i '' "s|SHARED_WORKSPACE=.*|SHARED_WORKSPACE=$SHARED_WORKSPACE|" .env
-        else
-            # Linux
-            sed -i "s|ACTOR_ROOT=.*|ACTOR_ROOT=$ACTOR_ROOT|" .env
-            sed -i "s|PM_WORKSPACE=.*|PM_WORKSPACE=$PM_WORKSPACE|" .env
-            sed -i "s|SHARED_WORKSPACE=.*|SHARED_WORKSPACE=$SHARED_WORKSPACE|" .env
-        fi
-        echo "✅ .env file created with detected paths"
-        echo "⚠️  Please edit .env to add your actor-specific configuration"
-    else
-        echo "⚠️  No .env.example found, please create .env manually"
-    fi
-fi
 
 echo ""
-echo "🎯 Next steps:"
-echo "1. Source the environment: source .env.detected"
-echo "2. Edit .env to configure actor-specific settings"
-echo "3. Run: npm install"
-echo "4. Run: npx nx serve"
+echo "📍 Actor Configuration:"
+echo "   ACTOR_NAME: $ACTOR_NAME"
+echo "   WORKSPACE_ROOT: $WORKSPACE_ROOT"
+echo "   SHARED_WORKSPACE: $SHARED_WORKSPACE_PATH"
+
+# Verify shared workspace exists
+if [[ ! -d "$SHARED_WORKSPACE_PATH" ]]; then
+    echo ""
+    echo "⚠️  Shared workspace not found at: $SHARED_WORKSPACE_PATH"
+    echo "   PM Director will create it when needed"
+fi
 
 # Make scripts executable
 chmod +x scripts/*.sh 2>/dev/null || true
 
 echo ""
-echo "✨ Environment setup complete!"
+echo "🎉 Actor environment setup complete!"
+echo ""
+echo "✅ Configuration sourced from: $PM_ENV_FILE"
+echo "✅ No separate .env file needed - actors use PM Director's configuration"
+echo ""
+echo "🎯 Next steps:"
+echo "1. Run: npm install (or yarn install)"
+echo "2. Start actor: npx nx serve"
+echo ""
+echo "💡 To use environment in your shell:"
+echo "   source $PM_ENV_FILE"
