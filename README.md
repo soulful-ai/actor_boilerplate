@@ -52,13 +52,13 @@ npm install
 
 ```bash
 # Generate MCP configuration
-npm run nx generate-mcp-config
+npx nx generate-mcp-config
 
 # Run tests
-npm run nx test
+npx nx test
 
 # Start MCP server
-npm run nx serve
+npx nx serve
 ```
 
 ### 4. Add to PM Director
@@ -102,7 +102,7 @@ PM Director (Port 9000)
 - **Shared Workspace** - Automatic setup of communication directories
 
 ### 3. Development Tools
-- **Nx Commands** - Simplified with npm scripts (`npm run nx`)
+- **Nx Commands** - Direct usage with `npx nx`
 - **TEST_MODE** - Bypass authentication in tests
 - **Port Convention** - 900X series for actor assignments
 - **Git Workflow** - Submodule-aware PR process

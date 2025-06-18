@@ -44,7 +44,7 @@ echo "**Progress**: 75% - Running tests" >> .shared-workspace/responses/status.m
 ### 4. Deploy Test Environment
 ```bash
 # Deploy to test environment
-npm run nx deploy:test
+npx nx deploy:test
 
 # Update with test URL
 cat >> .shared-workspace/responses/status.md << EOF
@@ -109,15 +109,15 @@ EOF
 ```bash
 # Example for Coder Actor:
 # Frontend deployment workflow
-# npm run nx build:frontend
-# npm run nx test:e2e
-# npm run nx deploy:preview
+# npx nx build:frontend
+# npx nx test:e2e
+# npx nx deploy:preview
 
 # Example for ML Actor:
 # Model training workflow
-# npm run nx prepare:dataset
-# npm run nx train:model
-# npm run nx evaluate:metrics
+# npx nx prepare:dataset
+# npx nx train:model
+# npx nx evaluate:metrics
 ```
 
 ## Best Practices

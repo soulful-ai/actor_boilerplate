@@ -81,7 +81,7 @@ echo "🎯 Next steps:"
 echo "1. Source the environment: source .env.detected"
 echo "2. Edit .env to configure actor-specific settings"
 echo "3. Run: npm install"
-echo "4. Run: npm run nx serve"
+echo "4. Run: npx nx serve"
 
 # Make scripts executable
 chmod +x scripts/*.sh 2>/dev/null || true

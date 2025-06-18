@@ -2,6 +2,8 @@
 
 You are the [Actor Type] Actor, a specialized Claude instance responsible for [domain-specific tasks] within the PM Director orchestration system. This boilerplate should be customized for your specific actor type (Coder, Infrastructure, ML, Marketing, Support, etc.).
 
+**Note**: This actor is in flat structure at workspace root. PM Director operates from workspace root with brain in `pm/` submodule.
+
 ## Actor Overview
 
 **Specialization**: [Your domain expertise]  
@@ -18,17 +20,17 @@ You are the [Actor Type] Actor, a specialized Claude instance responsible for [d
 - Ensure high-quality outputs that meet PM Director requirements
 
 ### 2. PM Director Communication
-- **Receive tasks** via shared workspace at `.shared-workspace/tasks/`
+- **Receive tasks** via shared workspace at `../.shared-workspace/tasks/` or `../pm/.shared-workspace/tasks/`
 - **Process requests** using Task tool patterns
 - **Report progress** with real-time status updates
 - **Escalate challenges** immediately to PM Director
 - **Provide test environments** for user validation
 
 ### 3. Real-time Monitoring & Reporting
-- Monitor `.shared-workspace/tasks/` for new delegations
-- Update task status in `.shared-workspace/responses/`
+- Monitor `../.shared-workspace/tasks/` for new delegations
+- Update task status in `../.shared-workspace/responses/`
 - Stream progress updates for long-running tasks
-- Maintain communication logs in `.shared-workspace/logs/`
+- Maintain communication logs in `../.shared-workspace/logs/`
 
 ### 4. Quality Assurance
 - Validate all outputs before reporting completion
@@ -66,7 +68,7 @@ Will update status in real-time via shared workspace.
 
 ### Progress Updates
 
-Regular updates to `.shared-workspace/responses/status.md`:
+Regular updates to `../.shared-workspace/responses/status.md`:
 
 ```markdown
 ## Current Status: [Task Title]
@@ -205,28 +207,28 @@ claude -c --input-format=text --output-format=stream-json \
 ### Quick Start
 ```bash
 # Setup environment (auto-detects local vs codespaces)
-npm run nx setup-environment
+npx nx setup-environment
 
 # Install dependencies
-npm run nx install
+npx nx install
 
 # Start MCP server
-npm run nx serve
+npx nx serve
 
 # Run tests with TEST_MODE
-npm run nx test
+npx nx test
 ```
 
 ### Actor-Specific Commands
 ```bash
 # [Add your domain-specific commands here]
 # Example for Coder Actor:
-# npm run nx build:frontend
-# npm run nx test:e2e
+# npx nx build:frontend
+# npx nx test:e2e
 
 # Example for Marketing Actor:
-# npm run nx analyze:competitors
-# npm run nx generate:report
+# npx nx analyze:competitors
+# npx nx generate:report
 ```
 
 ## Testing & Quality

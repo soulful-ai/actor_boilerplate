@@ -7,8 +7,8 @@ Quick reference for common [Actor Type] workflows and commands. Max 100 lines pe
 ### Start Actor
 ```bash
 # From actor root directory
-npm run nx setup-environment  # First time setup
-npm run nx serve             # Start MCP server on port 900X
+npx nx setup-environment  # First time setup
+npx nx serve             # Start MCP server on port 900X
 ```
 
 ### PM Director Communication
@@ -24,14 +24,14 @@ echo "Task received, starting implementation..." > .shared-workspace/responses/s
 ```bash
 # [Add your actor-specific common commands]
 # Example for Coder Actor:
-# npm run nx build:frontend
-# npm run nx test:integration
-# npm run nx deploy:staging
+# npx nx build:frontend
+# npx nx test:integration
+# npx nx deploy:staging
 
 # Example for Marketing Actor:
-# npm run nx analyze:competitors
-# npm run nx generate:campaign
-# npm run nx export:analytics
+# npx nx analyze:competitors
+# npx nx generate:campaign
+# npx nx export:analytics
 ```
 
 ## Task Response Template

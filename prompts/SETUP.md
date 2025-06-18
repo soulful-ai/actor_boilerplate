@@ -14,7 +14,7 @@ cd packages/[actor-name]
 
 # Install dependencies
 npm install
-npm run nx install
+npx nx install
 
 # Copy and configure environment
 cp .env.example .env
@@ -39,7 +39,7 @@ SHARED_WORKSPACE=/path/to/.shared-workspace
 ### Generate MCP Config
 ```bash
 # Generate config for Claude Desktop
-npm run nx generate-mcp-config
+npx nx generate-mcp-config
 
 # Config will be created at .mcp.json
 # Copy to Claude Desktop config directory
@@ -48,13 +48,13 @@ npm run nx generate-mcp-config
 ### Start MCP Server
 ```bash
 # Development mode
-npm run nx serve
+npx nx serve
 
 # With environment override
-ACTOR_PORT=9005 npm run nx serve
+ACTOR_PORT=9005 npx nx serve
 
 # Test mode (bypasses auth)
-TEST_MODE=true npm run nx serve
+TEST_MODE=true npx nx serve
 ```
 
 ## Domain-Specific Setup
@@ -63,11 +63,11 @@ TEST_MODE=true npm run nx serve
 ```bash
 # Example for Coder Actor:
 # docker compose up -d  # Start local services
-# npm run nx seed:db   # Initialize database
+# npx nx seed:db   # Initialize database
 
 # Example for ML Actor:
 # docker pull ollama/ollama  # Get ML runtime
-# npm run nx download:models # Download base models
+# npx nx download:models # Download base models
 ```
 
 ## Verify Setup
@@ -81,7 +81,7 @@ curl http://localhost:900X/health
 ls -la $SHARED_WORKSPACE/
 
 # Run tests
-npm run nx test
+npx nx test
 ```
 
 ### Common Issues

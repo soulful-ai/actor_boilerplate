@@ -13,7 +13,7 @@ lsof -i :900X
 kill -9 $(lsof -t -i:900X)
 
 # Try different port
-ACTOR_PORT=9006 npm run nx serve
+ACTOR_PORT=9006 npx nx serve
 ```
 
 ### Connection Refused
@@ -22,7 +22,7 @@ ACTOR_PORT=9006 npm run nx serve
 env | grep -E "(ACTOR|MCP|ALLOWED)"
 
 # Check server logs
-npm run nx serve --verbose
+npx nx serve --verbose
 
 # Test with curl
 curl -v http://localhost:900X/health
@@ -88,8 +88,8 @@ export PM_WORKSPACE=$(dirname $(dirname $ACTOR_ROOT))
 ```bash
 # Example for Coder Actor:
 # Build failures
-# npm run nx reset
-# npm run nx build --skip-cache
+# npx nx reset
+# npx nx build --skip-cache
 
 # Example for ML Actor:
 # GPU not detected
@@ -102,13 +102,13 @@ export PM_WORKSPACE=$(dirname $(dirname $ACTOR_ROOT))
 ### Tests Failing
 ```bash
 # Run with TEST_MODE
-TEST_MODE=true npm run nx test
+TEST_MODE=true npx nx test
 
 # Run specific test
-TEST_MODE=true npm run nx test -- --testNamePattern="test_name"
+TEST_MODE=true npx nx test -- --testNamePattern="test_name"
 
 # Debug mode
-TEST_MODE=true DEBUG=* npm run nx test
+TEST_MODE=true DEBUG=* npx nx test
 ```
 
 ## Quick Diagnostics
