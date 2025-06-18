@@ -122,7 +122,7 @@ The actor supports both local and GitHub Codespaces environments:
 
 ```bash
 # Auto-detect and configure environment
-./scripts/setup-environment.sh
+./scripts/setup.sh
 
 # Local Development
 export ACTOR_ROOT=/Users/username/Workspace/workspace/packages/[actor-name]
@@ -207,7 +207,7 @@ claude -c --input-format=text --output-format=stream-json \
 ### Quick Start
 ```bash
 # Setup environment (auto-detects local vs codespaces)
-npx nx setup-environment
+npx nx setup
 
 # Install dependencies
 npx nx install
@@ -293,7 +293,7 @@ Each file should be:
    - Ensure directory exists: `mkdir -p .shared-workspace/tasks`
 
 3. **Environment Detection**
-   - Run setup script: `./scripts/setup-environment.sh`
+   - Run setup script: `./scripts/setup.sh`
    - Check detected environment: `cat .env.detected`
    - Verify paths are correct for your environment
 

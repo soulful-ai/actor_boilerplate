@@ -40,11 +40,11 @@
         "command": "TEST_MODE=true nx run mcp-cli_use:test"
       }
     },
-    "setup-environment": {
+    "setup": {
       "executor": "nx:run-commands",
-      "description": "Setup actor environment (detects local vs codespaces)",
+      "description": "Setup actor",
       "options": {
-        "command": "./scripts/setup-environment.sh"
+        "command": "./scripts/setup.sh"
       }
     }
   }
