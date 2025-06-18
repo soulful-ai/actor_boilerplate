@@ -1,6 +1,6 @@
-# Actor Boilerplate - PM Director Actor Template
+# Actor Boilerplate
 
-A comprehensive boilerplate for creating specialized Claude actors within the PM Director orchestration system. This template provides everything needed to quickly create new actors (Coder, Infrastructure, ML, Marketing, Support, etc.) that integrate seamlessly with PM Director.
+A production-ready template for creating specialized AI actors that integrate with director orchestration systems. This boilerplate provides a complete foundation for building domain-specific actors with MCP (Model Context Protocol) support, task management, and proper communication patterns.
 
 ## Overview
 
@@ -18,17 +18,17 @@ This boilerplate includes:
 ### 1. Create New Actor from Boilerplate
 
 ```bash
-# From PM Director workspace packages/ directory
-git clone https://github.com/soulful-ai/boilerplate.git my-actor-name
-cd my-actor-name
+# Clone the boilerplate
+git clone https://github.com/soulful-ai/actor_boilerplate my-actor
+cd my-actor
 
 # Remove boilerplate git history
 rm -rf .git
 git init
 
-# Create new repository
-gh repo create soulful-ai/my-actor-name --private
-git remote add origin https://github.com/soulful-ai/my-actor-name.git
+# Create your repository
+gh repo create [your-org]/my-actor --private
+git remote add origin https://github.com/[your-org]/my-actor.git
 ```
 
 ### 2. Customize for Your Actor
@@ -61,39 +61,41 @@ npx nx test
 npx nx serve
 ```
 
-### 4. Add to PM Director
+### 4. Add to Director
 
 ```bash
-# From PM Director workspace
-cd packages/
-git submodule add https://github.com/soulful-ai/my-actor-name.git
+# For flat structure (actors as siblings)
+cd ../director
+git submodule add https://github.com/[your-org]/my-actor ../my-actor
 
-# Update PM Director configuration
-# - Add to .env
-# - Update detect-environment.sh
-# - Add to project.json orchestration commands
+# For nested structure (packages directory)
+# cd director
+# git submodule add https://github.com/[your-org]/my-actor packages/my-actor
+
+# Update director configuration
+# - Add actor paths to .env
+# - Update project.json if needed
 ```
 
 ## Architecture
 
 ```
-PM Director (Port 9000)
+Director (Port 9000)
     ├── Shared Workspace Communication
     ├── Task Delegation via .shared-workspace/
     └── Actor Management
-         ├── Coder Actor (Port 9001)
-         ├── Infrastructure Actor (Port 9002)
-         ├── ML Actor (Port 9003)
-         ├── Marketing Actor (Port 9004)
+         ├── Actor 1 (Port 9001)
+         ├── Actor 2 (Port 9002)
+         ├── Actor 3 (Port 9003)
          └── [Your Actor] (Port 900X)
 ```
 
 ## Key Features
 
-### 1. PM Director Integration
-- **Task Reception** - Monitor `.shared-workspace/tasks/` for delegations
-- **Progress Reporting** - Real-time updates to `.shared-workspace/responses/`
-- **Challenge Escalation** - Immediate blocker communication patterns
+### 1. Director Integration
+- **Task Reception** - Monitor shared workspace for delegations
+- **Progress Reporting** - Real-time status updates
+- **Challenge Escalation** - Immediate blocker communication
 - **Test Deployment** - Focus on user-testable environments
 
 ### 2. Environment Support

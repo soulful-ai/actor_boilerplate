@@ -1,6 +1,14 @@
 {
   "name": "actor-boilerplate",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Production-ready template for AI actors with MCP support",
+  "keywords": ["ai", "actor", "claude", "mcp", "nx", "orchestration"],
+  "author": "Soulful AI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/soulful-ai/actor_boilerplate"
+  },
   "private": true,
   "scripts": {},
   "devDependencies": {
