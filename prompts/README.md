@@ -1,49 +1,73 @@
-# [Actor Type] Actor Prompts
+# Actor Prompts Documentation
 
-Quick reference for common [Actor Type] workflows and commands. Max 100 lines per file.
+Quick reference guides for actor operations. Each file is limited to 100 lines for quick access.
 
-## Quick Reference
+## Available Prompts
 
-### Start Actor
+### Core Documentation
+- **[README.md](README.md)** - This index file listing all prompts
+- **[SETUP.md](SETUP.md)** - Environment setup and MCP configuration
+- **[WORKFLOWS.md](WORKFLOWS.md)** - Common actor workflows and patterns
+- **[TROUBLESHOOTING.md](TROUBLESHOOTING.md)** - Solutions for common issues
+
+## Quick Start
+
+### 1. Environment Setup
 ```bash
-# From actor root directory
-npx nx setup-environment  # First time setup
-npx nx serve             # Start MCP server on port 900X
+# Copy and configure environment
+cp .env.example .env
+vi .env  # Set ACTOR_ROOT and other variables
+
+# Run setup script
+./scripts/setup-environment.sh
 ```
 
-### PM Director Communication
+### 2. Generate MCP Configuration
 ```bash
-# Monitor for tasks
-watch -n 1 cat .shared-workspace/tasks/current-task.md
+# Generate .mcp.json from template
+npx nx run workspace:generate-mcp-config
 
-# Update status
-echo "Task received, starting implementation..." > .shared-workspace/responses/status.md
+# Restart Claude to pick up new configuration
 ```
 
-### Common Operations
+### 3. Start Actor
 ```bash
-# [Add your actor-specific common commands]
-# Example for Coder Actor:
-# npx nx build:frontend
-# npx nx test:integration
-# npx nx deploy:staging
+# Start MCP server on configured port
+npx nx serve
+```
 
-# Example for Marketing Actor:
-# npx nx analyze:competitors
-# npx nx generate:campaign
-# npx nx export:analytics
+## Communication with Director
+
+### Monitor Tasks
+```bash
+# Watch for new tasks from director
+watch -n 1 cat ../.shared-workspace/tasks/current-task.md
+```
+
+### Update Status
+```bash
+# Report progress to director
+echo "Task 60% complete..." > ../.shared-workspace/responses/status.md
+```
+
+### Escalate Challenges
+```bash
+# Alert director to blockers
+cat > ../.shared-workspace/responses/challenge.md << EOF
+## CHALLENGE: Missing API Key
+**Blocking**: Yes
+**Need**: OPENAI_API_KEY environment variable
+EOF
 ```
 
 ## Task Response Template
-
-When receiving a task from PM Director:
 
 ```markdown
 ## Task Received: [Task Title]
 
 **Status**: In Progress
-**Actor**: [Actor Type]
-**Started**: [timestamp]
+**Actor**: [Your Actor Type]
+**Started**: $(date)
 
 ### Understanding:
 - [What you understand about the task]
@@ -54,42 +78,24 @@ When receiving a task from PM Director:
 ### Challenges:
 - [Any blockers or dependencies]
 
-**Updates**: Will stream to .shared-workspace/responses/
+**Updates**: Streaming to .shared-workspace/responses/
 ```
-
-## Challenge Escalation Template
-
-For immediate PM Director attention:
-
-```markdown
-## CHALLENGE: [Issue]
-
-**Severity**: High
-**Blocking**: Yes
-
-### Issue:
-[Clear description]
-
-### Need:
-[What you need from PM Director/User]
-
-### Impact:
-[What's blocked without resolution]
-```
-
-## Available Documentation
-
-- **SETUP.md** - Environment and dependency setup procedures
-- **WORKFLOWS.md** - Step-by-step guides for common tasks
-- **TROUBLESHOOTING.md** - Solutions for known issues
-- **[DOMAIN].md** - Domain-specific procedures
 
 ## Best Practices
 
-1. **Always acknowledge tasks** immediately
-2. **Update status frequently** (every 5-10 minutes)
-3. **Escalate blockers immediately** don't wait
-4. **Provide test links** when deploying
-5. **Document decisions** in responses
+1. **Acknowledge immediately** - Respond within 30 seconds
+2. **Update frequently** - Every 5-10 minutes
+3. **Escalate blockers** - Don't wait, alert immediately
+4. **Test before completion** - Always provide test links
+5. **Document decisions** - Explain technical choices
 
-Remember: Clear communication with PM Director ensures smooth orchestration.
+## Customization
+
+When customizing this boilerplate:
+1. Update actor type throughout documentation
+2. Add domain-specific prompts
+3. Configure appropriate port (900X series)
+4. Set up specialized tools
+5. Define communication patterns
+
+Remember: Clear communication enables smooth orchestration!
