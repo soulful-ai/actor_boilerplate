@@ -38,12 +38,26 @@ SHARED_WORKSPACE=/path/to/.shared-workspace
 
 ### Generate MCP Config
 ```bash
-# Generate config for Claude Desktop
-npx nx generate-mcp-config
+# 1. Ensure environment is configured
+source .env
 
-# Config will be created at .mcp.json
-# Copy to Claude Desktop config directory
+# 2. Generate MCP config for this actor
+npx nx run workspace:generate-mcp-config
+
+# 3. Verify .mcp.json was created
+ls -la .mcp.json
+
+# 4. Check generated paths are correct
+cat .mcp.json | grep -E "(command|args|env)"
+
+# 5. Restart Claude Desktop to pick up changes
 ```
+
+### MCP Configuration Details
+- **Template**: `.mcp.json.template` in actor root
+- **Output**: `.mcp.json` in actor directory  
+- **Port**: Must match ACTOR_PORT in .env (e.g., 9001)
+- **Security**: Inherits from actor's security settings
 
 ### Start MCP Server
 ```bash
