@@ -2,6 +2,9 @@
 .env
 .env.local
 
+# MCP configuration (generated)
+.mcp.json
+
 # IDE
 .vscode/
 .idea/

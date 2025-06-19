@@ -51,8 +51,12 @@ npm install
 ### 3. Configure and Test
 
 ```bash
+# Copy and configure environment
+cp .env.example .env
+# Edit .env with your actor settings (name, type, port)
+
 # Generate MCP configuration
-npx nx generate-mcp-config
+npx nx run workspace:generate-mcp-config
 
 # Run tests
 npx nx test
@@ -60,6 +64,8 @@ npx nx test
 # Start MCP server
 npx nx serve
 ```
+
+See [prompts/SETUP.md](prompts/SETUP.md) for detailed MCP setup instructions.
 
 ### 4. Add to Director
 
